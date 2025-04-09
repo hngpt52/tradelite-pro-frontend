@@ -1,12 +1,6 @@
-@import "tailwindcss/preflight";
+@tailwind base;
+@tailwind components;
 @tailwind utilities;
-
-/* Reset some browser defaults */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
 
 /* Variables */
 :root {
@@ -18,75 +12,106 @@
   --fey-accent-purple: #8b5cf6;
   --fey-accent-green: #10b981;
   --fey-accent-red: #ef4444;
+
+  /* shadcn/ui variables */
+  --background: 0 0% 6%;
+  --foreground: 0 0% 98%;
+  --card: 0 0% 7%;
+  --card-foreground: 0 0% 98%;
+  --popover: 0 0% 7%;
+  --popover-foreground: 0 0% 98%;
+  --primary: 221 83% 53%;
+  --primary-foreground: 0 0% 98%;
+  --secondary: 0 0% 12%;
+  --secondary-foreground: 0 0% 98%;
+  --muted: 0 0% 12%;
+  --muted-foreground: 0 0% 63.9%;
+  --accent: 0 0% 12%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 0 0% 16.5%;
+  --input: 0 0% 16.5%;
+  --ring: 221 83% 53%;
+  --radius: 0.75rem;
 }
 
 /* Force dark theme */
 html {
-  color-scheme: dark !important;
+  color-scheme: dark;
 }
 
 /* Core body styles */
-html, body {
-  background-color: var(--fey-background) !important;
-  color: white !important;
-  font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
-  height: 100% !important;
-  width: 100% !important;
+html,
+body {
+  background-color: var(--fey-background);
+  color: white;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, sans-serif;
+  height: 100%;
+  width: 100%;
   overflow-x: hidden;
 }
 
-/* Ensure proper layout */
-#__next, .layout-root {
-  display: flex;
-  flex-direction: column;
-  min-height: 100%;
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
 }
 
-/* Fix layout container behavior */
-main {
-  flex: 1;
-  width: 100%;
-  position: relative;
-  overflow-y: auto;
+::-webkit-scrollbar-track {
+  background: var(--fey-background);
 }
 
-/* Fix for scrolling issues */
-.overflow-hidden {
-  overflow: hidden !important;
+::-webkit-scrollbar-thumb {
+  background: var(--fey-border);
+  border-radius: 3px;
 }
 
-/* Fey UI components */
-@layer utilities {
-  .fey-card {
-    @apply bg-fey-card rounded-2xl shadow-lg border border-fey-border/10 !important;
+::-webkit-scrollbar-thumb:hover {
+  background: #3b3b3b;
+}
+
+/* Smooth transitions */
+a,
+button,
+input,
+select,
+textarea {
+  transition: all 0.2s ease-in-out;
+}
+
+@layer base {
+  * {
+    @apply border-border;
   }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
 
-  .fey-button {
-    @apply rounded-xl px-4 py-2 font-medium transition-all duration-200 focus:outline-none !important;
+@layer components {
+  .fey-card {
+    @apply bg-[#121212] rounded-2xl shadow-md border border-[#2a2a2a]/20 backdrop-blur-sm transition-all duration-300 hover:shadow-lg;
   }
 
   .fey-button-primary {
-    @apply bg-fey-accent-blue hover:bg-fey-accent-blue/90 text-white rounded-xl px-4 py-2 !important;
+    @apply bg-[#3b82f6] hover:bg-[#3b82f6]/90 text-white rounded-xl px-4 py-2 transition-all duration-300;
   }
 
   .fey-button-secondary {
-    @apply bg-fey-highlight hover:bg-gray-800 text-white rounded-xl px-4 py-2 !important;
+    @apply bg-[#1e1e1e] hover:bg-[#2a2a2a] text-white rounded-xl px-4 py-2 transition-all duration-300;
   }
 
   .fey-input {
-    @apply bg-fey-highlight border border-fey-border/50 rounded-xl px-4 py-2 
-    focus:outline-none focus:ring-1 focus:ring-fey-accent-blue/50 text-white !important;
+    @apply bg-[#1e1e1e] border border-[#2a2a2a]/50 rounded-xl px-4 py-2 
+    focus:outline-none focus:ring-1 focus:ring-[#3b82f6]/50 text-white;
   }
 
-  .fey-positive {
-    @apply text-fey-accent-green !important;
+  .fey-gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#3b82f6] to-[#8b5cf6];
   }
 
-  .fey-negative {
-    @apply text-fey-accent-red !important;
-  }
-
-  .fey-value {
-    @apply font-medium text-lg !important;
+  .fey-gradient-bg {
+    @apply bg-gradient-to-r from-[#3b82f6]/10 to-[#8b5cf6]/10;
   }
 }
